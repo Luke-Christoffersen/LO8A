@@ -1,0 +1,21 @@
+
+public class Student implements Comparable<Student> {
+	private String _name;
+	private int _score;
+
+	@Override
+	public int compareTo(Student other) {
+		if (this._score > other._score) {
+			return 1;
+		} else if (this._score == other._score ) {
+			return 0;
+		}
+		return -1;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [_name=" + _name + ", _score=" + _score + "]";
+	}
+	
+}
