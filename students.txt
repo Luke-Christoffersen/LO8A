@@ -1,0 +1,5 @@
+John Doe 80
+Lily Potter 95
+Frodo Baggins 79
+Samwise Gamgee 72
+Gandalf 100
