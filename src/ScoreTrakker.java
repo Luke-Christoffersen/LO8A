@@ -1,74 +1,84 @@
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ScoreTrakker {
-	private ArrayList<Student> students = new ArrayList();
-	
-	private void loadDataFile(String fileName){
-		try {
-			// Create a file reader
-			FileReader reader = new FileReader(fileName);
-			
-			// Create a scanner
-			Scanner in = new Scanner(reader);
-			
-			// String variables to hold student name and score
-			String studentName = "";
-			String studentScoreHolder = "";
-			int studentScore = 0;
-			
-			// Loop through the file
-			while (in.hasNext()) {
-				// Check if the input is an int
-				if(in.hasNextInt()) {
+	private ArrayList<Student> students = new ArrayList<>();
+
+	private String[] files = { "badscore.txt" };
+
+	private void loadDataFile(String fileName) throws FileNotFoundException {
+		// Create a file reader
+		FileReader reader = new FileReader(fileName);
+
+		// Create a scanner
+		Scanner in = new Scanner(reader);
+
+		// String variables to hold student name and score
+		String studentName = "";
+		String studentScoreHolder = "";
+//		String line = "";
+		int studentScore = 0;
+
+		// Loop through the file
+		while (in.hasNext()) {
+			// Store line for exception handling 
+//			line = in.nextLine().trim();
+			// Check if the input is an int
+			if(in.hasNextInt()) {
+				try {
 					// Extract the integer score
 					studentScoreHolder = in.next();
 					studentScore = Integer.parseInt(studentScoreHolder);
-					
+
 					// Add a new student to the list, trimming off the last extra space
 					students.add(new Student(studentName.trim(), studentScore));
-					
-					// Clear out student name and score
-					studentName = "";
-					studentScoreHolder = "";
-					studentScore = 0;
+
+				} catch (NumberFormatException e) {
+					System.out.println("Incorrect format for " + studentName + "not a valid score: " + e);
 				}
-				else {
-					// Get the part of the student name plus a space
-					studentName += in.next() + ' ';
-				}
+				// Clear out student name line and score
+				studentName = "";
+				studentScoreHolder = "";
+				studentScore = 0;
+//				line = "";
 			}
-			
-			// Close out in
-			in.close();
+			else {
+				// Get the part of the student name plus a space
+				studentName += in.next() + ' ';
+			}
 		}
-		catch (FileNotFoundException e) {
-			System.out.println(e.getLocalizedMessage());
-		}
+
+		// Close out in
+		in.close();
 	}
-	
+
 	private void printInOrder() {
-		// Sort the students array
-		for (Student student1: students) {
-			for (Student student2: students) {
-				// If student1 is less than student2, print student 1
-				if (student1.compareTo(student2) == 0) {
-					// Print out the smaller student
-					System.out.println(student1);
-				}
+		// Using built in sort method
+		Collections.sort(students);
+		// Print now that we are sorted
+	    for (Student student : students) {
+	        System.out.println(student);
+	    }
+	    students = new ArrayList<>();
+	}
+
+	private void processFiles() {
+		for (String file : files) {
+			try {
+				loadDataFile(file);
+				printInOrder();
+				System.out.println();
+			} catch (FileNotFoundException e) {
+				System.out.println(e.getLocalizedMessage());
 			}
 		}
 	}
-	
-	private void processFiles() {
-		
-	}
-	
+
 	public static void main(String[] args) {
 		ScoreTrakker scoreTrakker = new ScoreTrakker();
-		scoreTrakker.loadDataFile("students.txt");
-		scoreTrakker.printInOrder();
+		scoreTrakker.processFiles();
 	}
 }
 
