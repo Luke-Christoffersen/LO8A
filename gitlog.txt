@@ -1,0 +1,41 @@
+commit e63c3fe2ff89ca777d8d01d4235502776000f726
+Author: Your Name <luke_christoffersen@mines.edu>
+Date:   Fri Oct 2 10:39:45 2026 -0600
+
+    feat: fixed try catch logic by switching to reading by line in the files
+
+commit fcfbb7de68a7a38d418e544be7cd54946eb2d896
+Author: Your Name <luke_christoffersen@mines.edu>
+Date:   Thu Oct 1 18:59:01 2026 -0600
+
+    feat: updated ScoreTrakker to almost final state, one bug remaining, other various small changes
+
+commit 1dfd8b57cb1750cfff5317427f2bedde535ed1da
+Author: Aidan Schiefer <aidanschiefer@gmail.com>
+Date:   Thu Oct 1 17:03:03 2026 -0600
+
+    feat: Implemented Part 1 loadFileData logic
+
+commit 5ad0f032702473ad20f4b07de131f8068a238615
+Author: Aidan Schiefer <aidanschiefer@gmail.com>
+Date:   Thu Oct 1 16:21:15 2026 -0600
+
+    Added constructor for student class
+
+commit e7bd2bfcb56c6f26d8d630afb00041293060ac0f
+Author: Aidan Schiefer <aidanschiefer@gmail.com>
+Date:   Thu Oct 1 16:16:55 2026 -0600
+
+    feat: implemented the printInOrder method
+
+commit 7442437b25ca09d45dab9773b7725d182e4cbaf9
+Author: Your Name <luke_christoffersen@mines.edu>
+Date:   Wed Sep 30 11:23:02 2026 -0600
+
+    feat: added ScoreTrakker with empty methods and Student class
+
+commit 68221eff2f840ec0a9d428e6b825e20b246f656d
+Author: Your Name <luke_christoffersen@mines.edu>
+Date:   Wed Sep 30 10:25:40 2026 -0600
+
+    feat: added gitignore
