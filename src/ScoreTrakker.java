@@ -1,3 +1,4 @@
+// Luke Christoffersen, Aidan Schiefer
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -6,7 +7,7 @@ import java.util.Collections;
 public class ScoreTrakker {
 	private ArrayList<Student> students = new ArrayList<>();
 
-	private String[] files = { "badscore.txt" };
+	private String[] files = {"scores.txt", "badscore.txt", "nofile.txt"};
 
 	private void loadDataFile(String fileName) throws FileNotFoundException {
 		// Create a file reader
@@ -15,38 +16,29 @@ public class ScoreTrakker {
 		// Create a scanner
 		Scanner in = new Scanner(reader);
 
-		// String variables to hold student name and score
+		// String variables to hold line, scoreText, student name, and score
 		String studentName = "";
 		String studentScoreHolder = "";
-//		String line = "";
+		String line = "";
 		int studentScore = 0;
 
 		// Loop through the file
-		while (in.hasNext()) {
+		while (in.hasNextLine()) {
 			// Store line for exception handling 
-//			line = in.nextLine().trim();
-			// Check if the input is an int
-			if(in.hasNextInt()) {
-				try {
-					// Extract the integer score
-					studentScoreHolder = in.next();
-					studentScore = Integer.parseInt(studentScoreHolder);
+			line = in.nextLine().trim();
+			// Grab last space per line so we can find the score
+			int lastSpace = line.lastIndexOf(' ');
 
-					// Add a new student to the list, trimming off the last extra space
-					students.add(new Student(studentName.trim(), studentScore));
+			studentName = line.substring(0, lastSpace).trim();
+			studentScoreHolder = line.substring(lastSpace + 1);
 
-				} catch (NumberFormatException e) {
-					System.out.println("Incorrect format for " + studentName + "not a valid score: " + e);
-				}
-				// Clear out student name line and score
-				studentName = "";
-				studentScoreHolder = "";
-				studentScore = 0;
-//				line = "";
-			}
-			else {
-				// Get the part of the student name plus a space
-				studentName += in.next() + ' ';
+			try {
+				// try to make score into int, if fails will trigger exception
+				studentScore = Integer.parseInt(studentScoreHolder);
+				students.add(new Student(studentName, studentScore));
+			} catch (NumberFormatException e) {
+				System.out.println("Incorrect format for " + studentName + " not a valid score: " + studentScoreHolder);
+				System.out.println();
 			}
 		}
 
@@ -58,10 +50,10 @@ public class ScoreTrakker {
 		// Using built in sort method
 		Collections.sort(students);
 		// Print now that we are sorted
-	    for (Student student : students) {
-	        System.out.println(student);
-	    }
-	    students = new ArrayList<>();
+		for (Student student : students) {
+			System.out.println(student);
+		}
+		students = new ArrayList<>();
 	}
 
 	private void processFiles() {
